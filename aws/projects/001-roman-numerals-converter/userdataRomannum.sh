@@ -7,7 +7,7 @@ pip3 install flask
 
 
 
-FOLDER="https://github.com/shawn135/my-repository/tree/main/aws/projects/001-roman-numerals-converter"
+FOLDER="https://raw.githubusercontent.com/shawn135/my-repository/main/aws/projects/001-roman-numerals-converter"
 
 cd /home/ec2/user
 wget ${FOLDER}/app.py
@@ -16,3 +16,5 @@ cd templates
 wget ${FOLDER}/templates/index.html
 wget ${FOLDER}/templates/result.html
 cd ..
+
+python3 app.py
