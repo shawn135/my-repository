@@ -1,7 +1,8 @@
-#! /bin/bash
+#!/bin/bash -x
 
 yum update -y
 yum install python3 -y
+yum install pip -y
 yum install python3-pip -y
 pip3 install flask
 yum install git -y
