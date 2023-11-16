@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  An EC2 instance and SG
+  
+Resources:
+
+  MySecGrp:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH
+      GroupName: enable-ssh
+      SecurityGroupIngress: 
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          ToPort: 80
+          IpProtocol: tcp
+
+
+
+  MyInstance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-041feb57c611358bd
+      InstanceType: t2.micro
+      KeyName: shawn-ec2-ssh-key
+      SecurityGroupIds: 
+        - !GetAtt MySecGrp.GroupId
+      Tags: 
+        - Key: Name
+          Value: shawn-webserver
