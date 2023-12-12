@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  Build RDS, autoscaling group for phonebook app
+  
+Parameters:
+
+  pVPC:
+    Description: VPC for RDS and EC2 instances
+    Type: AWS::EC2::VPC::Id
+
+
+Resources:
+
+  rDBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Front-end access to RDS
+      VpcId: !Ref pVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        CidrIp: 0.0.0.0/0
+
+  rDatabase:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: "20"
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 7
+      DBInstanceClass: db.t2.micro
+      DBInstanceIdentifier: shawn-phonebook-db-instance
+      DBName: clarusway_phonebook
+      Engine: mysql
+      EngineVersion: 8.0.32
+      MasterUsername: admin
+      MasterUserPassword: Serdar_1
+      MultiAZ: false
+      Port: "3306"
+      PubliclyAccessible: true
+      VPCSecurityGroups: 
+        - !Ref rDBSecurityGroup
+
+
+  
+#Outputs:
